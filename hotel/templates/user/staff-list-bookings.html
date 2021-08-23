@@ -27,16 +27,20 @@
                 <td>{{ booking.start_date }}</td>
                 <td>{{ booking.end_date }}</td>
                 <td>{{ booking.status }}</td>
-                <td>                   
-                    <a href="">
-                        <button type="submit" name="accept" class="btn btn-success btn-primary w-100">{% trans 'Accept' %}</button>
-                    </a>
-                </td>
-                <td>                   
-                    <a href="">
-                        <button type="submit" name="decline" class="btn btn-danger btn-primary w-100">{% trans 'Decline' %}</button>
-                    </a>
-                </td>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="booking" value="{{ booking.booking_id }}">
+                    <td>                   
+                        <a href="">
+                            <button type="submit" name="accept" class="btn btn-success btn-primary w-100">{% trans 'Accept' %}</button>
+                        </a>
+                    </td>
+                    <td>                   
+                        <a href="">
+                            <button type="submit" name="decline" class="btn btn-danger btn-primary w-100">{% trans 'Decline' %}</button>
+                        </a>
+                    </td>
+                </form>
             </tr>
             {% endfor %}
         </tbody>

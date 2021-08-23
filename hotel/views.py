@@ -210,6 +210,14 @@ def list_users(request):
 @permission_required('hotel.staff_bookng_list', raise_exception=True)
 def list_bookings_staff(request):
     bookings = Booking.objects.filter(status = 'waiting').all()
+    if request.method == "POST":
+        data = request.POST
+        booking_id = data.get('booking')
+        if 'accept' in data:
+            bookings.filter(pk = booking_id).update(status = 'approved')
+        if 'decline' in data:
+            bookings.filter(pk = booking_id).update(status = 'decline')
+    bookings = Booking.objects.filter(status = 'waiting').all()
     context = {
         "bookings": bookings
     }
